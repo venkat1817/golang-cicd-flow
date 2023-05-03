@@ -1,0 +1,34 @@
+ci 
+===
+mkdir cicd-golang-code
+cd cicd-golang-code/
+vi ci_pkg.sh
+./ci_pkg.sh
+
+ci -shell scripting golang code
+===============================
+#!/bin/bash
+rm -rf golang-cicd-flow
+git clone git@github.com:venkat1817/golang-cicd-flow.git
+cd golang-cicd-flow
+aws s3 cp webapp.go s3://mybucket-golang-code
+
+cd
+==
+cd Downloads/
+ssh -i "cicd.pem" ec2-user@ec2-3-15-26-44.us-east-2.compute.amazonaws.com
+sudo su -
+yum install -y golang
+vi cd_golang.sh
+export GOPATH=$HOME/projects
+export GOROOT=/usr/lib/golang
+export PATH=$PATH:$GOROOT/bin
+chmod 755 *.sh
+./cd_golang.sh
+
+
+cd -shell scripting golang code
+================================
+#!/bin/bash
+aws s3 cp s3://mybucket-golang-code/webapp.go .
+go run webapp.go
